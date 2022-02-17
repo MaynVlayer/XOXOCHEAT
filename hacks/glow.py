@@ -3,9 +3,11 @@ from ctypes import *
 from offsets import *
 
 from SDK.entity import Entity, Player
+from SDK.module import register_module
 from SDK.process import Process, GlowObject
 
 
+@register_module('glow')
 def main(csgo: Process):
     client: int = csgo.modules["client.dll"]
     player = Player()

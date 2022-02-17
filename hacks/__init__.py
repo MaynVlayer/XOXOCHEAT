@@ -1,6 +1,1 @@
-from .bhop import main
-from .glow import main
-from .trigger import main
-from .aimbot import main
-from .radarhack import main
-from .rcs import main
+import aimbot, bhop, glow, radarhack, rcs, trigger

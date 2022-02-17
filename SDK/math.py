@@ -1,9 +1,11 @@
 
 from vectormath import Vector3
-from numpy import fmod, pi, sqrt, arctan
+from numpy import fmod, pi, sqrt, arctan, min, max, abs
 
 from SDK.entity import Entity, Player
 
+def clamp(value, min_v, max_v):
+    return min([max([value, min_v]), max_v])
 
 def fix_angle(angle: Vector3):
 
@@ -15,9 +17,10 @@ def fix_angle(angle: Vector3):
         angle.y += 360
 
     # Clamp pitch to -89, 89
-    angle.x = min(max(angle.x, -89), 89)
+    angle.x = clamp(angle.x, -89, 89)
 
     # Roll = 0
+    # This is due some bug, need investigation
     angle.z = 0.0
 
     return angle
