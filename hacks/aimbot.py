@@ -6,11 +6,7 @@ from SDK.math import calc_angle
 from SDK.enums import Bones
 from SDK.process import Process
 from SDK.utils import get_mouse
-
-
-class Config:
-    bone = Bones.head
-    smoothing = 0.7
+from SDK.module import ModuleConfig, register_module
 
 
 def get_closest_enemy(player: Player, bone: int, max_distance: float = inf):
@@ -31,15 +27,24 @@ def get_closest_enemy(player: Player, bone: int, max_distance: float = inf):
 
     return angles
 
+
+config = ModuleConfig(
+    1, 
+    bone = Bones.head, 
+    smoothing = 0.7,
+)
+
+
+@register_module('aimbot', config)
 def main(csgo: Process):
     player = Player()
 
     if get_mouse(1):
-        aim_distance = get_closest_enemy(player, Config.bone, 2.0)
+        aim_distance = get_closest_enemy(player, config.bone, 2.0)
 
         if aim_distance is None:
             return
 
-        correct_aim = player.aim + aim_distance * Config.smoothing
+        correct_aim = player.aim + aim_distance * config.smoothing
 
         player.aim = correct_aim - player.punch * 2
